@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">EmsProject</string>
+
+    <string name="info_description">This demo app consists of a two screens app.\nThe first screen is a dashboard that holds different widgets of an energy management system (EMS).\nThe widgets allow you to observe the different sources of energy and the amount of energy overtime.</string>
+    <string name="error_text">Oops, something went wrong :(</string>
+    <string name="quasar_charged">Quasar charged</string>
+    <string name="quasar_discharged">Quasar discharged</string>
+    <string name="value_in_kwh">%s kWh</string>
+    <string name="value_in_percentage">%s \%%</string>
+    <string name="building_demand">Building demand</string>
+    <string name="quasar_power">Quasar power</string>
+    <string name="solar_power">Solar power</string>
+    <string name="grid_power">Grid power</string>
+    <string name="total_energy">Total Energy</string>
+    <string name="current_energy">Current Energy</string>
+    <string name="live_data">Live Data</string>
+    <string name="statitics_of_each_source">Statistics of each source that supplies the building energy ( %s kWh)</string>
+    <string name="total_of_elements_showed">Total of elements showed: %s</string>
+    <string name="view_last_20_details">View last 20 details</string>
+    <string name="view_all_details">View all details</string>
+    <string name="xy_graph">Sources chart</string>
+</resources>

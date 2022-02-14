@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="default_margin_half">8dp</dimen>
+
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="default_padding_half">8dp</dimen>
+    <dimen name="default_padding_minimum">2dp</dimen>
+
+    <dimen name="default_fontsize_medium">16sp</dimen>
+    <dimen name="default_fontsize_small">14sp</dimen>
+    <dimen name="default_fontsize_large">20sp</dimen>
+</resources>
