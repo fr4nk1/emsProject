@@ -1,8 +1,5 @@
 package com.franpulido.emsproject.data.entities
 
-import androidx.room.Entity
-
-@Entity
 data class LiveEmsDataEntity(
     val solar_power: Double,
     val quasars_power: Double,
