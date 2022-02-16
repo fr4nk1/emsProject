@@ -14,9 +14,11 @@
     <string name="total_energy">Total Energy</string>
     <string name="current_energy">Current Energy</string>
     <string name="live_data">Live Data</string>
-    <string name="statitics_of_each_source">Statistics of each source that supplies the building energy ( %s kWh)</string>
-    <string name="total_of_elements_showed">Total of elements showed: %s</string>
-    <string name="view_last_20_details">View last 20 details</string>
-    <string name="view_all_details">View all details</string>
+    <string name="statistics_of_each_source">Statistics of each source that supplies the building energy ( %s kWh )</string>
+    <string name="total_of_elements_showed">%s elements</string>
+    <string name="view_last_20_details">View last 20 entries</string>
+    <string name="view_all_details">View all entries</string>
     <string name="xy_graph">Sources chart</string>
+    <string name="info">Info</string>
+
 </resources>

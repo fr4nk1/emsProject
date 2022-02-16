@@ -20,28 +20,34 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlDashboard"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/default_padding"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="visible">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include
-            android:id="@+id/layoutQuasar"
-            layout="@layout/layout_quasar" />
+        <RelativeLayout
+            android:id="@+id/rlDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/default_padding"
+            android:visibility="gone"
 
-        <include
-            android:id="@+id/layoutLiveData"
-            layout="@layout/layout_livedata" />
+            tools:visibility="visible">
 
-        <include
-            android:id="@+id/layoutStatitics"
-            layout="@layout/layout_statitics" />
+            <include
+                android:id="@+id/layoutQuasar"
+                layout="@layout/layout_quasar" />
 
-    </RelativeLayout>
+            <include
+                android:id="@+id/layoutLiveData"
+                layout="@layout/layout_livedata" />
+
+            <include
+                android:id="@+id/layoutStatitics"
+                layout="@layout/layout_statitics" />
+
+        </RelativeLayout>
+    </ScrollView>
 
     <include
         android:id="@+id/layoutError"
@@ -57,10 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_margin="@dimen/default_margin_half" />
 
     </RelativeLayout>
 

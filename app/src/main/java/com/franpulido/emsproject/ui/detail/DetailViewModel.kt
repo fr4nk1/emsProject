@@ -2,13 +2,13 @@ package com.franpulido.emsproject.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.franpulido.domain.models.HistoricalEmsData
+import com.franpulido.emsproject.models.HistoricalEmsModel
+import com.franpulido.emsproject.models.HistoricalEmsModelList
 import com.franpulido.emsproject.ui.common.ScopedViewModel
-import com.franpulido.usecases.GetHistoricalData
+import com.franpulido.emsproject.ui.common.colorsTheme
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.github.mikephil.charting.utils.ColorTemplate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,27 +16,16 @@ import javax.inject.Named
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    @Named("allInfo") private val allInfo: Boolean,
-    private val getHistoricalData: GetHistoricalData
+    @Named("allData") private val allData: HistoricalEmsModelList
 ) :
     ScopedViewModel() {
 
     sealed class UiModel {
-        class ShowTotalValues(val totalValues: Int) : DetailViewModel.UiModel()
-        class PaintGraph(val dataSets: ArrayList<ILineDataSet>) : DetailViewModel.UiModel()
-        object ShowContent : DetailViewModel.UiModel()
-        object LoadingShow : DetailViewModel.UiModel()
-        object LoadingHide : DetailViewModel.UiModel()
-        object Error : DetailViewModel.UiModel()
+        class PaintGraph(val dataSets: ArrayList<ILineDataSet>, val totalValues: String) :
+            DetailViewModel.UiModel()
     }
 
     private val listElements = listOf("Building", "Grid", "Pv", "Quasar")
-    private val colors = intArrayOf(
-        ColorTemplate.VORDIPLOM_COLORS[0],
-        ColorTemplate.VORDIPLOM_COLORS[1],
-        ColorTemplate.VORDIPLOM_COLORS[2],
-        ColorTemplate.VORDIPLOM_COLORS[3]
-    )
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
@@ -46,21 +35,12 @@ class DetailViewModel @Inject constructor(
         }
 
     private fun paintXY() = launch {
-        _model.value = UiModel.LoadingShow
-        val historicalData =
-            if (allInfo) getHistoricalData.invoke() else getHistoricalData.invoke().take(20)
-
-        if (historicalData.isEmpty()) {
-            _model.value = UiModel.Error
-        } else {
-            _model.value = UiModel.ShowContent
-            _model.value = UiModel.ShowTotalValues(historicalData.size)
-            _model.value = UiModel.PaintGraph(getDataSets(historicalData))
-        }
-        _model.value = UiModel.LoadingHide
+        val historicalData: List<HistoricalEmsModel> = allData.results
+        _model.value =
+            UiModel.PaintGraph(getDataSets(historicalData), historicalData.size.toString())
     }
 
-    private fun getDataSets(historicalData: List<HistoricalEmsData>): ArrayList<ILineDataSet> {
+    private fun getDataSets(historicalData: List<HistoricalEmsModel>): ArrayList<ILineDataSet> {
         val dataSets = ArrayList<ILineDataSet>()
         for ((index, elements) in listElements.withIndex()) {
             val values = ArrayList<Entry>()
@@ -74,7 +54,8 @@ class DetailViewModel @Inject constructor(
                 )
 
                 //I have a problem with this library that only allows Float so the precision is lower.
-                //When I try to cast Long to Float, and some points appear in the same position
+                //When I try to cast Long to Float in some points appear the same position
+
                 //val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(data.timeStamp).time
                 //values.add(Entry(date.toFloat(), arrayElements[index]))
 
@@ -84,7 +65,7 @@ class DetailViewModel @Inject constructor(
             val d = LineDataSet(values, elements)
             d.lineWidth = 2.5f
             d.circleRadius = 4f
-            val color = colors[index]
+            val color = colorsTheme[index]
             d.color = color
             d.setCircleColor(color)
             dataSets.add(d)

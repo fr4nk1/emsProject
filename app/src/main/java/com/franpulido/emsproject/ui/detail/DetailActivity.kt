@@ -1,10 +1,11 @@
 package com.franpulido.emsproject.ui.detail
 
 
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +17,8 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
 
     companion object {
-        const val ALL_INFO = "DetailActivity:info"
+        const val ALL_DATA = "DetailActivity:data"
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -53,12 +54,13 @@ class DetailActivity : AppCompatActivity() {
 
     private fun updateUi(model: DetailViewModel.UiModel) {
         when (model) {
-            DetailViewModel.UiModel.Error -> binding.layoutError.viewError.visibility = View.VISIBLE
             is DetailViewModel.UiModel.PaintGraph -> {
                 with(binding.chartView) {
                     setDrawGridBackground(false)
                     description.isEnabled = true
-                    description.text = getString(R.string.xy_graph)
+                    description.text =
+                        getString(R.string.total_of_elements_showed, model.totalValues)
+                    description.textSize = 14f
                     setDrawBorders(false)
 
                     axisLeft.isEnabled = false
@@ -79,35 +81,47 @@ class DetailActivity : AppCompatActivity() {
                     setScaleEnabled(true)
                     setPinchZoom(true)
 
-                    with(legend){
+                    with(legend) {
                         verticalAlignment = Legend.LegendVerticalAlignment.TOP
-                        horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-                        orientation = Legend.LegendOrientation.HORIZONTAL
+                        horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+                        orientation = Legend.LegendOrientation.VERTICAL
                         textSize = 12f
-                        formToTextSpace = 8f
-                        xEntrySpace = 16f
-                        yEntrySpace = 16f
+                        formToTextSpace = 4f
+                        xEntrySpace = 8f
+                        yEntrySpace = 8f
                         setDrawInside(false)
                     }
 
                     extraTopOffset
                     val data = LineData(model.dataSets)
+                    when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            legend.textColor = Color.WHITE
+                            axisRight.textColor = Color.WHITE
+                            xAxis.textColor = Color.WHITE
+                            description.textColor = Color.WHITE
+                            data.setValueTextColor(Color.WHITE)
+                        }
+                        Configuration.UI_MODE_NIGHT_NO -> {
+                            legend.textColor = Color.BLACK
+                            axisRight.textColor = Color.BLACK
+                            xAxis.textColor = Color.BLACK
+                            description.textColor = Color.BLACK
+                            data.setValueTextColor(Color.BLACK)
+                        }
+                    }
                     setData(data)
                     invalidate()
                 }
             }
-            is DetailViewModel.UiModel.ShowTotalValues -> binding.tvTiTleDetail.text =
-                getString(R.string.total_of_elements_showed, model.totalValues.toString())
-            DetailViewModel.UiModel.LoadingHide -> binding.progress.visibility = View.GONE
-            DetailViewModel.UiModel.LoadingShow -> binding.progress.visibility = View.VISIBLE
-            DetailViewModel.UiModel.ShowContent -> binding.llDetailContent.visibility = View.VISIBLE
         }
 
     }
 
     class MyYAxisFormatter : IAxisValueFormatter {
         override fun getFormattedValue(value: Float, axis: AxisBase?): String {
-            return "$value kWh"
+            val df = DecimalFormat("#")
+            return "${df.format(value)} kWh"
         }
     }
 

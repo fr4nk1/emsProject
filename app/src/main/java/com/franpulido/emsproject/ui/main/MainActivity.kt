@@ -1,6 +1,8 @@
 package com.franpulido.emsproject.ui.main
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +14,9 @@ import com.franpulido.emsproject.R
 import com.franpulido.emsproject.databinding.ActivityMainBinding
 import com.franpulido.emsproject.ui.common.startActivity
 import com.franpulido.emsproject.ui.detail.DetailActivity
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         when (model) {
             is MainViewModel.UiModel.ContentLiveData -> paintInfoLiveData(model)
             is MainViewModel.UiModel.NavigationToDetail -> startActivity<DetailActivity> {
-                putExtra(DetailActivity.ALL_INFO, model.retrieveAllInfo)
+                putExtra(DetailActivity.ALL_DATA, model.historicalData)
             }
             is MainViewModel.UiModel.ContentStatistics -> paintStatisticsData(model)
             MainViewModel.UiModel.Init -> viewModel.initUi()
@@ -82,11 +87,63 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("StringFormatInvalid")
     private fun paintStatisticsData(model: MainViewModel.UiModel.ContentStatistics) {
+
         with(model.statistics) {
             binding.layoutStatitics.tvSolarPower.text = getString(R.string.value_in_percentage, solarPower.toString())
             binding.layoutStatitics.tvQuasarPower.text =  getString(R.string.value_in_percentage, quasarsPower.toString())
             binding.layoutStatitics.tvGridPower.text =  getString(R.string.value_in_percentage, gridPower.toString())
-            binding.layoutStatitics.tvBuildingEnergy.text =  getString(R.string.statitics_of_each_source, buildingDemand.toString())
+            binding.layoutStatitics.tvBuildingEnergy.text =  getString(R.string.statistics_of_each_source, buildingDemand.toString())
         }
+
+        paintChart(model)
     }
+
+    private fun paintChart(model: MainViewModel.UiModel.ContentStatistics) {
+        binding.layoutStatitics.chart.setUsePercentValues(true)
+        binding.layoutStatitics.chart.description.isEnabled = false
+        binding.layoutStatitics.chart.setExtraOffsets(5f, 10f, 5f, 5f)
+
+        binding.layoutStatitics.chart.dragDecelerationFrictionCoef = 0.95f
+
+        binding.layoutStatitics.chart.isDrawHoleEnabled = true
+        binding.layoutStatitics.chart.setHoleColor(Color.TRANSPARENT)
+
+        binding.layoutStatitics.chart.setTransparentCircleColor(Color.TRANSPARENT)
+        binding.layoutStatitics.chart.setTransparentCircleAlpha(110)
+
+        binding.layoutStatitics.chart.holeRadius = 58f
+        binding.layoutStatitics.chart.transparentCircleRadius = 61f
+
+        binding.layoutStatitics.chart.rotationAngle = 0f
+        binding.layoutStatitics.chart.isRotationEnabled = true
+        binding.layoutStatitics.chart.isHighlightPerTapEnabled = true
+
+
+        binding.layoutStatitics.chart.animateY(1400, Easing.EaseInOutQuad)
+
+        binding.layoutStatitics.chart.setEntryLabelColor(Color.TRANSPARENT)
+
+        val legend = binding.layoutStatitics.chart.legend
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+        legend.orientation = Legend.LegendOrientation.VERTICAL
+        legend.setDrawInside(false)
+        legend.xEntrySpace = 7f
+        legend.yEntrySpace = 0f
+        legend.yOffset = 0f
+
+        when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> legend.textColor = Color.WHITE
+            Configuration.UI_MODE_NIGHT_NO -> legend.textColor = Color.BLACK
+        }
+
+        val data = PieData(model.dataSetStatistics)
+        data.setValueTextSize(0f)
+        data.setValueTextColor(Color.TRANSPARENT)
+        binding.layoutStatitics.chart.data = data
+
+        binding.layoutStatitics.chart.highlightValues(null)
+        binding.layoutStatitics.chart.invalidate()
+    }
+
 }

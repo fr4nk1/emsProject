@@ -1,11 +1,11 @@
 package com.franpulido.emsproject.ui.detail
 
 import androidx.lifecycle.SavedStateHandle
+import com.franpulido.emsproject.models.HistoricalEmsModelList
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import java.lang.IllegalStateException
 import javax.inject.Named
 
 @Module
@@ -13,7 +13,8 @@ import javax.inject.Named
 class DetailActivityModule {
 
     @Provides
-    @Named("allInfo")
-    fun allInfoProvider(stateHandle: SavedStateHandle): Boolean =
-        stateHandle.get<Boolean>(DetailActivity.ALL_INFO) ?: false
+    @Named("allData")
+    fun allDataProvider(stateHandle: SavedStateHandle): HistoricalEmsModelList =
+        stateHandle.get<HistoricalEmsModelList>(DetailActivity.ALL_DATA) ?: HistoricalEmsModelList(
+            listOf())
 }

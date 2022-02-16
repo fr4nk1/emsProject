@@ -18,10 +18,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_padding"
             android:gravity="center"
             android:text="@string/live_data"
-            android:layout_marginBottom="@dimen/default_padding"
-            android:textSize="20sp"
+            android:textSize="@dimen/default_font_size_large"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -43,26 +43,13 @@
                     android:padding="@dimen/default_padding_minimum">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/solar_power"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextViewCards"
+                        android:text="@string/solar_power" />
 
                     <TextView
                         android:id="@+id/tvSolarPower"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
+                        style="@style/TextViewCards"
                         android:layout_marginBottom="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         tools:text="25 kW" />
 
                 </LinearLayout>
@@ -83,26 +70,13 @@
                     android:padding="@dimen/default_padding_minimum">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/quasar_power"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextViewCards"
+                        android:text="@string/quasar_power" />
 
                     <TextView
                         android:id="@+id/tvQuasarPower"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
+                        style="@style/TextViewCards"
                         android:layout_marginBottom="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         tools:text="25 kW" />
 
                 </LinearLayout>
@@ -124,26 +98,13 @@
                     android:padding="@dimen/default_padding_minimum">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/grid_power"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextViewCards"
+                        android:text="@string/grid_power" />
 
                     <TextView
                         android:id="@+id/tvGridPower"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
+                        style="@style/TextViewCards"
                         android:layout_marginBottom="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         tools:text="25 kW" />
 
                 </LinearLayout>
@@ -175,23 +136,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/default_margin_half"
+                        android:autoSizeMinTextSize="10sp"
                         android:autoSizeTextType="uniform"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:autoSizeMinTextSize="10sp"
                         android:text="@string/building_demand"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/tvBuildingDemand"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
+                        style="@style/TextViewCards"
                         android:layout_marginBottom="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         tools:text="25 kW" />
 
                 </LinearLayout>
@@ -212,26 +167,13 @@
                     android:padding="@dimen/default_padding_minimum">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/total_energy"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextViewCards"
+                        android:text="@string/total_energy" />
 
                     <TextView
                         android:id="@+id/tvTotalEnergy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
+                        style="@style/TextViewCards"
                         android:layout_marginBottom="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         tools:text="25 kW" />
 
                 </LinearLayout>
@@ -253,35 +195,20 @@
                     android:padding="@dimen/default_padding_minimum">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/current_energy"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextViewCards"
+                        android:text="@string/current_energy" />
 
                     <TextView
                         android:id="@+id/tvCurrentEnergy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/default_margin_half"
+                        style="@style/TextViewCards"
                         android:layout_marginBottom="@dimen/default_margin_half"
-                        android:autoSizeTextType="uniform"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
                         tools:text="25 kW" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-
         </LinearLayout>
-
 
     </LinearLayout>
 

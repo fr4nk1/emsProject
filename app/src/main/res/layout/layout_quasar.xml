@@ -8,70 +8,56 @@
     tools:showIn="@layout/activity_main">
 
     <androidx.cardview.widget.CardView
+        style="@style/CardQuasar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CardQuasar"
         android:layout_marginEnd="@dimen/default_padding_half"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:paddingHorizontal="@dimen/default_padding_double_half">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quasar_charged"
-                android:layout_marginTop="@dimen/default_margin_half"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                style="@style/TextViewQuasar"
+                android:text="@string/quasar_charged" />
 
             <TextView
                 android:id="@+id/tvQuasarCharged"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin_half"
+                style="@style/TextViewQuasar"
                 android:layout_marginBottom="@dimen/default_margin_half"
-                tools:text="25 kW"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                tools:text="25 kW" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        style="@style/CardQuasar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CardQuasar"
         android:layout_marginStart="@dimen/default_padding_half"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:paddingHorizontal="@dimen/default_padding_double_half">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quasar_discharged"
-                android:layout_marginTop="@dimen/default_margin_half"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                style="@style/TextViewQuasar"
+                android:text="@string/quasar_discharged" />
 
             <TextView
                 android:id="@+id/tvQuasarDischarged"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin_half"
+                style="@style/TextViewQuasar"
                 android:layout_marginBottom="@dimen/default_margin_half"
-                tools:text="25 kW"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                tools:text="25 kW" />
 
         </LinearLayout>
 

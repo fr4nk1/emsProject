@@ -1,7 +1,6 @@
-package com.franpulido.emsproject.data.database
+package com.franpulido.emsproject.data.entities
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity
 data class LiveEmsDataEntity(
