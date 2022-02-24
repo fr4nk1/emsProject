@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
+import kotlin.math.abs
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
@@ -50,7 +51,7 @@ class DetailViewModel @Inject constructor(
                     data.buildingActivePower.toFloat(),
                     data.gridActivePower.toFloat(),
                     data.pvActivePower.toFloat(),
-                    data.quasarsActivePower.toFloat()
+                    abs(data.quasarsActivePower.toFloat())
                 )
 
                 //I have a problem with this library that only allows Float so the precision is lower.

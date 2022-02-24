@@ -53,15 +53,6 @@ class MainViewModel @Inject constructor(
         class ShowQuasarDischarged(val totalQuasarDischarged: Double) : MainViewModel.UiModel()
     }
 
-    init {
-        initScope()
-    }
-
-    override fun onCleared() {
-        destroyScope()
-        super.onCleared()
-    }
-
     private fun refresh() {
         _model.postValue(UiModel.Init)
     }
@@ -71,14 +62,14 @@ class MainViewModel @Inject constructor(
             _model.value = UiModel.LoadingShow
             _model.value = UiModel.DashboardHide
             historicalData = getHistoricalData.invoke()
-            val quasarChargedList =
-                historicalData.filter { it.quasarsActivePower > 0 }.map { it.quasarsActivePower }
-            val quasarDisChargedList =
-                historicalData.filter { it.quasarsActivePower < 0 }.map { it.quasarsActivePower }
 
             if (historicalData.isEmpty()) {
                 _model.value = UiModel.Error
             } else {
+                val quasarChargedList =
+                    historicalData.filter { it.quasarsActivePower > 0 }.map { it.quasarsActivePower }
+                val quasarDisChargedList =
+                    historicalData.filter { it.quasarsActivePower < 0 }.map { it.quasarsActivePower }
                 _model.value = UiModel.ShowQuasarCharged(quasarChargedList.sumOf { it }.round())
                 _model.value =
                     UiModel.ShowQuasarDischarged(abs(quasarDisChargedList.sumOf { it }.round()))
@@ -117,7 +108,7 @@ class MainViewModel @Inject constructor(
 
     fun onViewDetails() {
         val newList: List<HistoricalEmsModel> = mapperHistoricalEmsModel()
-        val data = HistoricalEmsModelList(newList.take(20))
+        val data = HistoricalEmsModelList(newList.takeLast(20))
         _model.value = UiModel.NavigationToDetail(data)
     }
 
@@ -144,7 +135,6 @@ class MainViewModel @Inject constructor(
 
         val colors = ArrayList<Int>()
         for (c in colorsTheme) colors.add(c)
-        colors.add(ColorTemplate.getHoloBlue())
         dataSet.colors = colors
 
         return dataSet

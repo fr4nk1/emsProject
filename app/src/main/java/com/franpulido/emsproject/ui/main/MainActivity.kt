@@ -99,51 +99,52 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun paintChart(model: MainViewModel.UiModel.ContentStatistics) {
-        binding.layoutStatitics.chart.setUsePercentValues(true)
-        binding.layoutStatitics.chart.description.isEnabled = false
-        binding.layoutStatitics.chart.setExtraOffsets(5f, 10f, 5f, 5f)
 
-        binding.layoutStatitics.chart.dragDecelerationFrictionCoef = 0.95f
+        with(binding.layoutStatitics.chart){
+            setUsePercentValues(true)
+            description.isEnabled = false
+            setExtraOffsets(5f, 10f, 5f, 5f)
 
-        binding.layoutStatitics.chart.isDrawHoleEnabled = true
-        binding.layoutStatitics.chart.setHoleColor(Color.TRANSPARENT)
+            dragDecelerationFrictionCoef = 0.95f
 
-        binding.layoutStatitics.chart.setTransparentCircleColor(Color.TRANSPARENT)
-        binding.layoutStatitics.chart.setTransparentCircleAlpha(110)
+            isDrawHoleEnabled = true
+            setHoleColor(Color.TRANSPARENT)
 
-        binding.layoutStatitics.chart.holeRadius = 58f
-        binding.layoutStatitics.chart.transparentCircleRadius = 61f
+            setTransparentCircleColor(Color.TRANSPARENT)
+            setTransparentCircleAlpha(110)
 
-        binding.layoutStatitics.chart.rotationAngle = 0f
-        binding.layoutStatitics.chart.isRotationEnabled = true
-        binding.layoutStatitics.chart.isHighlightPerTapEnabled = true
+            holeRadius = 58f
+            transparentCircleRadius = 61f
 
+            rotationAngle = 0f
+            isRotationEnabled = true
+            isHighlightPerTapEnabled = true
+            animateY(1400, Easing.EaseInOutQuad)
+            setEntryLabelColor(Color.TRANSPARENT)
 
-        binding.layoutStatitics.chart.animateY(1400, Easing.EaseInOutQuad)
+            val legend = legend
+            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+            legend.orientation = Legend.LegendOrientation.VERTICAL
+            legend.setDrawInside(false)
+            legend.xEntrySpace = 7f
+            legend.yEntrySpace = 0f
+            legend.yOffset = 0f
 
-        binding.layoutStatitics.chart.setEntryLabelColor(Color.TRANSPARENT)
+            when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> legend.textColor = Color.WHITE
+                Configuration.UI_MODE_NIGHT_NO -> legend.textColor = Color.BLACK
+            }
 
-        val legend = binding.layoutStatitics.chart.legend
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        legend.orientation = Legend.LegendOrientation.VERTICAL
-        legend.setDrawInside(false)
-        legend.xEntrySpace = 7f
-        legend.yEntrySpace = 0f
-        legend.yOffset = 0f
+            val data = PieData(model.dataSetStatistics)
+            data.setValueTextSize(0f)
+            data.setValueTextColor(Color.TRANSPARENT)
+            this.data = data
 
-        when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-            Configuration.UI_MODE_NIGHT_YES -> legend.textColor = Color.WHITE
-            Configuration.UI_MODE_NIGHT_NO -> legend.textColor = Color.BLACK
+            highlightValues(null)
+            invalidate()
         }
 
-        val data = PieData(model.dataSetStatistics)
-        data.setValueTextSize(0f)
-        data.setValueTextColor(Color.TRANSPARENT)
-        binding.layoutStatitics.chart.data = data
-
-        binding.layoutStatitics.chart.highlightValues(null)
-        binding.layoutStatitics.chart.invalidate()
     }
 
 }
